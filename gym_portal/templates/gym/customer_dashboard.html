@@ -1,0 +1,184 @@
+<!-- gym_portal/templates/gym/customer_dashboard.html -->
+{% extends 'base.html' %}
+{% block title %}Customer Dashboard - SKPM Gym{% endblock %}
+{% block content %}
+    <h1 style="text-align: center; margin-bottom: 40px; color: #667eea;">
+        🏠 Welcome, {{ user.first_name }}!
+    </h1>
+
+    <!-- Profile Overview -->
+    <div class="card">
+        <h2 style="color: #f093fb; margin-bottom: 20px;">👤 Your Profile</h2>
+        <div class="profile-info">
+            <div class="info-item">
+                <div class="info-label">Age</div>
+                <div class="info-value">{{ profile.age|default:"Not set" }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Height</div>
+                <div class="info-value">{{ profile.height_cm|default:"Not set" }}{% if profile.height_cm %} cm{% endif %}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Weight</div>
+                <div class="info-value">{{ profile.weight_kg|default:"Not set" }}{% if profile.weight_kg %} kg{% endif %}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">BMI</div>
+                <div class="info-value">
+                    {% if profile.bmi %}
+                        {{ profile.bmi }}
+                        <span class="bmi-indicator bmi-{{ profile.bmi_category|lower|cut:' ' }}">{{ profile.bmi_category }}</span>
+                    {% else %}
+                        Not calculated
+                    {% endif %}
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Goal</div>
+                <div class="info-value">{{ profile.get_goal_display|default:"Not set" }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Activity Level</div>
+                <div class="info-value">{{ profile.get_activity_level_display|default:"Not set" }}</div>
+            </div>
+        </div>
+        <div style="margin-top: 20px;">
+            <a class="btn btn-primary" href="{% url 'customer_profile_edit' %}">✏️ Edit Profile</a>
+            <a class="btn btn-secondary" href="{% url 'add_progress' %}">📈 Add Progress</a>
+        </div>
+    </div>
+
+    <div class="grid">
+        <!-- Diet Plans -->
+        <div class="card">
+            <h3 style="color: #84fab0; margin-bottom: 20px;">🥗 Your Diet Plans</h3>
+            {% if diet_plans %}
+                {% for plan in diet_plans %}
+                    <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                        <h4 style="color: #ffecd2;">{{ plan.title }}</h4>
+                        <p style="color: #ccc; margin: 10px 0;"><em>Created: {{ plan.created_at|date:"M d, Y" }}</em></p>
+                        {% if plan.description %}
+                            <p style="margin-bottom: 15px;">{{ plan.description }}</p>
+                        {% endif %}
+
+                        {% if plan.breakfast %}
+                            <div style="margin: 10px 0;">
+                                <strong style="color: #ffc107;">🌅 Breakfast:</strong>
+                                <p style="margin: 5px 0; padding-left: 20px;">{{ plan.breakfast }}</p>
+                            </div>
+                        {% endif %}
+
+                        {% if plan.lunch %}
+                            <div style="margin: 10px 0;">
+                                <strong style="color: #28a745;">🌞 Lunch:</strong>
+                                <p style="margin: 5px 0; padding-left: 20px;">{{ plan.lunch }}</p>
+                            </div>
+                        {% endif %}
+
+                        {% if plan.dinner %}
+                            <div style="margin: 10px 0;">
+                                <strong style="color: #6f42c1;">🌙 Dinner:</strong>
+                                <p style="margin: 5px 0; padding-left: 20px;">{{ plan.dinner }}</p>
+                            </div>
+                        {% endif %}
+
+                        {% if plan.snacks %}
+                            <div style="margin: 10px 0;">
+                                <strong style="color: #fd7e14;">🍎 Snacks:</strong>
+                                <p style="margin: 5px 0; padding-left: 20px;">{{ plan.snacks }}</p>
+                            </div>
+                        {% endif %}
+
+                        {% if plan.trainer %}
+                            <p style="margin-top: 15px; color: #17a2b8;"><small>👨‍⚕️ By: {{ plan.trainer.first_name }} {{ plan.trainer.last_name }}</small></p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: #ccc; padding: 40px;">
+                    No diet plans yet. Complete your profile and a trainer will assign one based on your goals! 🎯
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- Workout Plans -->
+        <div class="card">
+            <h3 style="color: #ff6b6b; margin-bottom: 20px;">🏋️‍♂️ Your Workout Plans</h3>
+            {% if workout_plans %}
+                {% for plan in workout_plans %}
+                    <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                        <h4 style="color: #ffecd2;">{{ plan.title }}</h4>
+                        <p style="color: #ccc; margin: 10px 0;"><em>{{ plan.duration_weeks }} weeks program</em></p>
+                        {% if plan.description %}
+                            <p style="margin-bottom: 15px;">{{ plan.description }}</p>
+                        {% endif %}
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 15px;">
+                            {% if plan.monday %}
+                                <div style="background: rgba(255,107,107,0.1); padding: 10px; border-radius: 8px;">
+                                    <strong>Mon:</strong> {{ plan.monday|truncatewords:5 }}
+                                </div>
+                            {% endif %}
+                            {% if plan.tuesday %}
+                                <div style="background: rgba(255,193,7,0.1); padding: 10px; border-radius: 8px;">
+                                    <strong>Tue:</strong> {{ plan.tuesday|truncatewords:5 }}
+                                </div>
+                            {% endif %}
+                            {% if plan.wednesday %}
+                                <div style="background: rgba(40,167,69,0.1); padding: 10px; border-radius: 8px;">
+                                    <strong>Wed:</strong> {{ plan.wednesday|truncatewords:5 }}
+                                </div>
+                            {% endif %}
+                            {% if plan.thursday %}
+                                <div style="background: rgba(23,162,184,0.1); padding: 10px; border-radius: 8px;">
+                                    <strong>Thu:</strong> {{ plan.thursday|truncatewords:5 }}
+                                </div>
+                            {% endif %}
+                            {% if plan.friday %}
+                                <div style="background: rgba(111,66,193,0.1); padding: 10px; border-radius: 8px;">
+                                    <strong>Fri:</strong> {{ plan.friday|truncatewords:5 }}
+                                </div>
+                            {% endif %}
+                            {% if plan.saturday %}
+                                <div style="background: rgba(253,126,20,0.1); padding: 10px; border-radius: 8px;">
+                                    <strong>Sat:</strong> {{ plan.saturday|truncatewords:5 }}
+                                </div>
+                            {% endif %}
+                            {% if plan.sunday %}
+                                <div style="background: rgba(220,53,69,0.1); padding: 10px; border-radius: 8px;">
+                                    <strong>Sun:</strong> {{ plan.sunday|truncatewords:5 }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        {% if plan.trainer %}
+                            <p style="margin-top: 15px; color: #17a2b8;"><small>👨‍⚕️ By: {{ plan.trainer.first_name }} {{ plan.trainer.last_name }}</small></p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: #ccc; padding: 40px;">
+                    No workout plans yet. Your trainer will create a personalized program! 💪
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Recent Progress -->
+    {% if recent_progress %}
+        <div class="card">
+            <h3 style="color: #20c997; margin-bottom: 20px;">📈 Recent Progress</h3>
+            <div class="grid-3">
+                {% for progress in recent_progress %}
+                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 600; color: #20c997;">{{ progress.weight_kg }} kg</div>
+                        <div style="color: #ccc; margin-top: 5px;">{{ progress.date|date:"M d, Y" }}</div>
+                        {% if progress.notes %}
+                            <div style="margin-top: 10px; font-size: 0.9rem; color: #aaa;">{{ progress.notes|truncatewords:10 }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

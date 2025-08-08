@@ -1,0 +1,94 @@
+<!-- gym_portal/templates/gym/customer_profile_edit.html -->
+{% extends 'base.html' %}
+{% block title %}Edit Profile - SKPM Gym{% endblock %}
+{% block content %}
+    <div style="max-width: 800px; margin: 0 auto;">
+        <div class="card">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #f093fb;">✏️ Edit Your Profile</h2>
+
+            <form method="post">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div style="background: rgba(220,53,69,0.2); padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #dc3545;">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="id_age">Age (years)</label>
+                        {{ form.age }}
+                        {% if form.age.errors %}
+                            <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.age.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_phone">Phone Number</label>
+                        {{ form.phone }}
+                        {% if form.phone.errors %}
+                            <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.phone.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="id_height_cm">Height (cm)</label>
+                        {{ form.height_cm }}
+                        {% if form.height_cm.errors %}
+                            <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.height_cm.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_weight_kg">Weight (kg)</label>
+                        {{ form.weight_kg }}
+                        {% if form.weight_kg.errors %}
+                            <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.weight_kg.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="id_goal">Fitness Goal</label>
+                        {{ form.goal }}
+                        {% if form.goal.errors %}
+                            <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.goal.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_activity_level">Activity Level</label>
+                        {{ form.activity_level }}
+                        {% if form.activity_level.errors %}
+                            <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.activity_level.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_diseases">Medical Conditions / Allergies</label>
+                    {{ form.diseases }}
+                    {% if form.diseases.errors %}
+                        <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.diseases.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_emergency_contact">Emergency Contact</label>
+                    {{ form.emergency_contact }}
+                    {% if form.emergency_contact.errors %}
+                        <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.emergency_contact.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div style="display: flex; gap: 15px; margin-top: 30px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">💾 Save Profile</button>
+                    <a href="{% url 'customer_dashboard' %}" class="btn btn-secondary" style="flex: 1; text-align: center;">❌ Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

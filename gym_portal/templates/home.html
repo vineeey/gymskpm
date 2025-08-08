@@ -1,0 +1,73 @@
+<!-- gym_portal/templates/home.html -->
+{% extends 'base.html' %}
+{% block title %}Welcome to SKPM Gym{% endblock %}
+{% block content %}
+    <div class="text-center" style="text-align: center; margin-bottom: 50px;">
+        <h1 style="font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            Welcome to SKPM Gym 💪
+        </h1>
+        <p style="font-size: 1.3rem; margin-bottom: 40px; color: #ccc;">
+            Transform your body, elevate your mind. Connect with professional trainers for personalized fitness and nutrition plans.
+        </p>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="grid-3" style="margin-bottom: 50px;">
+        <div class="stats-card">
+            <div class="stats-number">{{ total_customers }}</div>
+            <div class="stats-label">Active Members</div>
+        </div>
+        <div class="stats-card">
+            <div class="stats-number">{{ total_trainers }}</div>
+            <div class="stats-label">Expert Trainers</div>
+        </div>
+        <div class="stats-card">
+            <div class="stats-number">{{ total_diet_plans }}</div>
+            <div class="stats-label">Diet Plans Created</div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="grid">
+        <div class="card">
+            <h3 style="color: #667eea; margin-bottom: 15px;">🎯 Personalized Training</h3>
+            <p>Get custom workout and diet plans tailored to your fitness goals, health conditions, and lifestyle.</p>
+        </div>
+        <div class="card">
+            <h3 style="color: #f093fb; margin-bottom: 15px;">👨‍⚕️ Expert Trainers</h3>
+            <p>Work with certified trainers who understand your needs and guide you every step of the way.</p>
+        </div>
+        <div class="card">
+            <h3 style="color: #84fab0; margin-bottom: 15px;">📊 Progress Tracking</h3>
+            <p>Monitor your progress with detailed tracking, photos, and regular check-ins with your trainer.</p>
+        </div>
+        <div class="card">
+            <h3 style="color: #ffecd2; margin-bottom: 15px;">🥗 Nutrition Guidance</h3>
+            <p>Receive detailed meal plans, nutrition advice, and dietary recommendations for optimal results.</p>
+        </div>
+    </div>
+
+    {% if not user.is_authenticated %}
+        <div style="text-align: center; margin-top: 50px;">
+            <h2 style="margin-bottom: 30px;">Ready to start your fitness journey?</h2>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a class="btn btn-primary" href="{% url 'signup_customer' %}" style="padding: 20px 40px; font-size: 1.1rem;">
+                    🚀 Join as Member
+                </a>
+                <a class="btn btn-secondary" href="{% url 'signup_trainer' %}" style="padding: 20px 40px; font-size: 1.1rem;">
+                    💼 Join as Trainer
+                </a>
+                <a class="btn btn-success" href="{% url 'login' %}" style="padding: 20px 40px; font-size: 1.1rem;">
+                    🔐 Login
+                </a>
+            </div>
+        </div>
+    {% else %}
+        <div style="text-align: center; margin-top: 50px;">
+            <h2 style="margin-bottom: 20px;">Welcome back, {{ user.first_name }}! 👋</h2>
+            <a class="btn btn-primary" href="{% url 'dashboard' %}" style="padding: 20px 40px; font-size: 1.1rem;">
+                📊 Go to Dashboard
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

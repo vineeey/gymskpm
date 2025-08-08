@@ -1,0 +1,92 @@
+<!-- gym_portal/templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}SKPM Gym Portal{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+</head>
+<body>
+    <!-- Enhanced Background Slideshow with 20 Images -->
+    <ul class="cb-slideshow">
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+    </ul>
+
+    <header class="nav" id="navbar">
+        <div class="brand">💪 SKPM Gym</div>
+        <nav class="nav-menu">
+            <a href="{% url 'home' %}">🏠 Home</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+                {% if user.groups.all.0.name == 'Trainer' %}
+                    <a href="{% url 'trainer_customers_list' %}">👥 Customers</a>
+                {% else %}
+                    <a href="{% url 'customer_profile_edit' %}">✏️ Edit Profile</a>
+                    <a href="{% url 'add_progress' %}">📈 Add Progress</a>
+                {% endif %}
+                <a href="{% url 'logout' %}" class="btn-secondary">🚪 Logout ({{ user.first_name }})</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn-primary">🔐 Login</a>
+                <a href="{% url 'signup_customer' %}" class="btn-secondary">👤 Sign Up</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="msg {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <main class="container fade-in-up">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        // Auto-hide messages after 5 seconds
+        setTimeout(function() {
+            const messages = document.querySelectorAll('.messages .msg');
+            messages.forEach(msg => {
+                msg.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => msg.remove(), 300);
+            });
+        }, 5000);
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

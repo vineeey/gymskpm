@@ -1,0 +1,134 @@
+<!-- gym_portal/templates/gym/trainer_create_workout_plan.html -->
+{% extends 'base.html' %}
+{% block title %}Create Workout Plan - {{ customer.first_name }} {{ customer.last_name }}{% endblock %}
+{% block content %}
+    <div style="max-width: 900px; margin: 0 auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h1 style="color: #ff6b6b;">🏋️‍♂️ Create Workout Plan for {{ customer.first_name }} {{ customer.last_name }}</h1>
+            <a href="{% url 'trainer_customer_detail' customer.id %}" class="btn btn-secondary">🔙 Back to Profile</a>
+        </div>
+
+        <div class="card">
+            <form method="post">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div style="background: rgba(220,53,69,0.2); padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #dc3545;">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <!-- Basic Information -->
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">📋 Basic Information</h3>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="id_title">Workout Plan Title</label>
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.title.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_duration_weeks">Duration (weeks)</label>
+                            {{ form.duration_weeks }}
+                            {% if form.duration_weeks.errors %}
+                                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.duration_weeks.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="id_description">Description</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.description.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_is_active">Active Plan</label>
+                            {{ form.is_active }}
+                            {% if form.is_active.errors %}
+                                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.is_active.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Schedule -->
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #84fab0; margin-bottom: 20px;">📅 Weekly Schedule</h3>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="id_monday">🔴 Monday</label>
+                            {{ form.monday }}
+                            {% if form.monday.errors %}
+                                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.monday.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_tuesday">🟡 Tuesday</label>
+                            {{ form.tuesday }}
+                            {% if form.tuesday.errors %}
+                                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.tuesday.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="id_wednesday">🟢 Wednesday</label>
+                            {{ form.wednesday }}
+                            {% if form.wednesday.errors %}
+                                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.wednesday.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_thursday">🔵 Thursday</label>
+                            {{ form.thursday }}
+                            {% if form.thursday.errors %}
+                                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.thursday.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="id_friday">🟣 Friday</label>
+                            {{ form.friday }}
+                            {% if form.friday.errors %}
+                                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.friday.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_saturday">🟠 Saturday</label>
+                            {{ form.saturday }}
+                            {% if form.saturday.errors %}
+                                <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.saturday.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_sunday">🔴 Sunday</label>
+                        {{ form.sunday }}
+                        {% if form.sunday.errors %}
+                            <div style="color: #ff6b6b; font-size: 0.9rem; margin-top: 5px;">{{ form.sunday.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 15px; margin-top: 30px;">
+                    <button type="submit" class="btn btn-warning" style="flex: 1;">💪 Create Workout Plan</button>
+                    <a href="{% url 'trainer_customer_detail' customer.id %}" class="btn btn-secondary" style="flex: 1; text-align: center;">❌ Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

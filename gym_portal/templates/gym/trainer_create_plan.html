@@ -1,0 +1,16 @@
+<!-- gym_portal/templates/gym/trainer_create_plan.html -->
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Create Diet Plan for {{ customer.username }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <label>Title</label>
+    {{ form.title }}
+    <label>Plan</label>
+    {{ form.plan_text }}
+    <label>Active?</label>
+    {{ form.is_active }}
+    <button type="submit">Create</button>
+  </form>
+{% endblock %}

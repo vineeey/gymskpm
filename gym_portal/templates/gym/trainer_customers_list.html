@@ -1,0 +1,105 @@
+<!-- gym_portal/templates/gym/trainer_customers_list.html -->
+{% extends 'base.html' %}
+{% block title %}All Customers - SKPM Gym{% endblock %}
+{% block content %}
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h1 style="color: #667eea;">👥 All Customers</h1>
+        <a href="{% url 'trainer_dashboard' %}" class="btn btn-secondary">🔙 Dashboard</a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="card" style="margin-bottom: 30px;">
+        <form method="get" style="display: flex; gap: 15px; align-items: end;">
+            <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                <label for="search">🔍 Search Customers</label>
+                <input type="text" name="search" id="search" value="{{ search_query }}" placeholder="Search by name or username..." class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+            {% if search_query %}
+                <a href="{% url 'trainer_customers_list' %}" class="btn btn-secondary">Clear</a>
+            {% endif %}
+        </form>
+    </div>
+
+    <!-- Customers Grid -->
+    {% if customers %}
+        <div class="grid">
+            {% for customer in customers %}
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                        <div>
+                            <h3 style="color: #f093fb; margin-bottom: 5px;">{{ customer.first_name }} {{ customer.last_name }}</h3>
+                            <p style="color: #ccc; margin: 3px 0;">@{{ customer.username }}</p>
+                            <p style="color: #17a2b8; font-size: 0.9rem;">{{ customer.email }}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            {% if customer.customer_profile.goal %}
+                                <span style="background: rgba(102,126,234,0.2); color: #667eea; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;">
+                                    {{ customer.customer_profile.get_goal_display }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Customer Stats -->
+                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin: 15px 0;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); gap: 10px; text-align: center; font-size: 0.9rem;">
+                            <div>
+                                <div style="color: #ffc107; font-weight: 600;">{{ customer.customer_profile.age|default:"-" }}</div>
+                                <div style="color: #ccc; font-size: 0.8rem;">Age</div>
+                            </div>
+                            <div>
+                                <div style="color: #28a745; font-weight: 600;">{{ customer.customer_profile.weight_kg|default:"-" }}{% if customer.customer_profile.weight_kg %}kg{% endif %}</div>
+                                <div style="color: #ccc; font-size: 0.8rem;">Weight</div>
+                            </div>
+                            <div>
+                                <div style="color: #ff6b6b; font-weight: 600;">{{ customer.customer_profile.bmi|default:"-" }}</div>
+                                <div style="color: #ccc; font-size: 0.8rem;">BMI</div>
+                            </div>
+                            <div>
+                                <div style="color: #20c997; font-weight: 600;">{{ customer.diet_plans.count }}</div>
+                                <div style="color: #ccc; font-size: 0.8rem;">Diet Plans</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Level -->
+                    {% if customer.customer_profile.activity_level %}
+                        <div style="margin: 10px 0; font-size: 0.9rem;">
+                            <strong style="color: #84fab0;">Activity:</strong>
+                            <span style="color: #ccc;">{{ customer.customer_profile.get_activity_level_display }}</span>
+                        </div>
+                    {% endif %}
+
+                    <!-- Medical Notes -->
+                    {% if customer.customer_profile.diseases %}
+                        <div style="background: rgba(255,193,7,0.1); padding: 10px; border-radius: 8px; margin: 10px 0; border-left: 3px solid #ffc107;">
+                            <strong style="color: #ffc107;">⚠️ Medical Notes:</strong>
+                            <p style="margin: 5px 0; font-size: 0.9rem; color: #ccc;">{{ customer.customer_profile.diseases|truncatewords:15 }}</p>
+                        </div>
+                    {% endif %}
+
+                    <!-- Action Buttons -->
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="{% url 'trainer_customer_detail' customer.id %}" class="btn btn-primary" style="flex: 1; text-align: center; font-size: 0.9rem;">👤 Profile</a>
+                        <a href="{% url 'trainer_create_diet_plan' customer.id %}" class="btn btn-success" style="flex: 1; text-align: center; font-size: 0.9rem;">🥗 Diet</a>
+                        <a href="{% url 'trainer_create_workout_plan' customer.id %}" class="btn btn-warning" style="flex: 1; text-align: center; font-size: 0.9rem;">💪 Workout</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card" style="text-align: center; padding: 60px;">
+            <div style="font-size: 4rem; margin-bottom: 20px;">🔍</div>
+            {% if search_query %}
+                <h2>No customers found matching "{{ search_query }}"</h2>
+                <p style="margin: 20px 0; color: #ccc;">Try adjusting your search terms or browse all customers.</p>
+                <a href="{% url 'trainer_customers_list' %}" class="btn btn-primary">Show All Customers</a>
+            {% else %}
+                <h2>No customers registered yet</h2>
+                <p style="margin: 20px 0; color: #ccc;">Customers will appear here once they sign up for the gym!</p>
+                <a href="{% url 'trainer_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

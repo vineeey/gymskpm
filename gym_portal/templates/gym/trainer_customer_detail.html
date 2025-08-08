@@ -1,0 +1,234 @@
+<!-- gym_portal/templates/gym/trainer_customer_detail.html -->
+{% extends 'base.html' %}
+{% block title %}{{ customer.first_name }} {{ customer.last_name }} - Customer Detail{% endblock %}
+{% block content %}
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+        <h1 style="color: #667eea;">👤 {{ customer.first_name }} {{ customer.last_name }}</h1>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="{% url 'trainer_customers_list' %}" class="btn btn-secondary">🔙 All Customers</a>
+            <a href="{% url 'trainer_dashboard' %}" class="btn btn-primary">📊 Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Customer Profile Overview -->
+    <div class="card">
+        <h2 style="color: #f093fb; margin-bottom: 20px;">📋 Profile Information</h2>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px;">
+            <div class="info-item">
+                <div class="info-label">Full Name</div>
+                <div class="info-value">{{ customer.first_name }} {{ customer.last_name }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Username</div>
+                <div class="info-value">@{{ customer.username }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Email</div>
+                <div class="info-value">{{ customer.email }}</div>
+            </div>
+            {% if profile.phone %}
+                <div class="info-item">
+                    <div class="info-label">Phone</div>
+                    <div class="info-value">{{ profile.phone }}</div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 20px;">
+            <div class="info-item">
+                <div class="info-label">Age</div>
+                <div class="info-value">{{ profile.age|default:"Not provided" }}{% if profile.age %} years{% endif %}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Height</div>
+                <div class="info-value">{{ profile.height_cm|default:"Not provided" }}{% if profile.height_cm %} cm{% endif %}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Weight</div>
+                <div class="info-value">{{ profile.weight_kg|default:"Not provided" }}{% if profile.weight_kg %} kg{% endif %}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">BMI</div>
+                <div class="info-value">
+                    {% if profile.bmi %}
+                        {{ profile.bmi }}
+                        <span class="bmi-indicator bmi-{{ profile.bmi_category|lower|cut:' ' }}">{{ profile.bmi_category }}</span>
+                    {% else %}
+                        Not calculated
+                    {% endif %}
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Goal</div>
+                <div class="info-value">{{ profile.get_goal_display|default:"Not set" }}</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Activity Level</div>
+                <div class="info-value">{{ profile.get_activity_level_display|default:"Not set" }}</div>
+            </div>
+        </div>
+
+        {% if profile.diseases %}
+            <div style="background: rgba(255,193,7,0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #ffc107; margin-top: 20px;">
+                <h4 style="color: #ffc107; margin-bottom: 10px;">⚠️ Medical Conditions / Allergies</h4>
+                <p style="color: #ccc; margin: 0;">{{ profile.diseases }}</p>
+            </div>
+        {% endif %}
+
+        {% if profile.emergency_contact %}
+            <div style="background: rgba(220,53,69,0.1); padding: 15px; border-radius: 10px; border-left: 4px solid #dc3545; margin-top: 15px;">
+                <strong style="color: #dc3545;">🚨 Emergency Contact:</strong>
+                <span style="color: #ccc;">{{ profile.emergency_contact }}</span>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="grid">
+        <!-- Diet Plans Section -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="color: #84fab0;">🥗 Diet Plans</h3>
+                <a href="{% url 'trainer_create_diet_plan' customer.id %}" class="btn btn-success">➕ Create Diet Plan</a>
+            </div>
+
+            {% if diet_plans %}
+                {% for plan in diet_plans %}
+                    <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div>
+                                <h4 style="color: #ffecd2; margin-bottom: 5px;">{{ plan.title }}</h4>
+                                <p style="color: #ccc; font-size: 0.9rem;">Created: {{ plan.created_at|date:"M d, Y H:i" }}</p>
+                                {% if plan.calories_target %}
+                                    <p style="color: #28a745; font-size: 0.9rem;">🎯 Target: {{ plan.calories_target }} calories</p>
+                                {% endif %}
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                {% if plan.is_active %}
+                                    <span style="background: rgba(40,167,69,0.2); color: #28a745; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;">✅ Active</span>
+                                {% else %}
+                                    <span style="background: rgba(108,117,125,0.2); color: #6c757d; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;">⏸️ Inactive</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if plan.description %}
+                            <p style="margin-bottom: 15px; color: #ccc;">{{ plan.description }}</p>
+                        {% endif %}
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0;">
+                            {% if plan.breakfast %}
+                                <div style="background: rgba(255,193,7,0.1); padding: 10px; border-radius: 8px;">
+                                    <strong style="color: #ffc107;">🌅 Breakfast</strong>
+                                    <p style="margin: 5px 0; font-size: 0.9rem; color: #ccc;">{{ plan.breakfast|truncatewords:10 }}</p>
+                                </div>
+                            {% endif %}
+
+                            {% if plan.lunch %}
+                                <div style="background: rgba(40,167,69,0.1); padding: 10px; border-radius: 8px;">
+                                    <strong style="color: #28a745;">🌞 Lunch</strong>
+                                    <p style="margin: 5px 0; font-size: 0.9rem; color: #ccc;">{{ plan.lunch|truncatewords:10 }}</p>
+                                </div>
+                            {% endif %}
+
+                            {% if plan.dinner %}
+                                <div style="background: rgba(111,66,193,0.1); padding: 10px; border-radius: 8px;">
+                                    <strong style="color: #6f42c1;">🌙 Dinner</strong>
+                                    <p style="margin: 5px 0; font-size: 0.9rem; color: #ccc;">{{ plan.dinner|truncatewords:10 }}</p>
+                                </div>
+                            {% endif %}
+
+                            {% if plan.snacks %}
+                                <div style="background: rgba(253,126,20,0.1); padding: 10px; border-radius: 8px;">
+                                    <strong style="color: #fd7e14;">🍎 Snacks</strong>
+                                    <p style="margin: 5px 0; font-size: 0.9rem; color: #ccc;">{{ plan.snacks|truncatewords:10 }}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <a href="{% url 'trainer_edit_diet_plan' plan.id %}" class="btn btn-primary" style="font-size: 0.9rem;">✏️ Edit</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div style="text-align: center; padding: 40px; color: #ccc;">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">🥗</div>
+                    <p>No diet plans created yet.</p>
+                    <a href="{% url 'trainer_create_diet_plan' customer.id %}" class="btn btn-success" style="margin-top: 15px;">Create First Diet Plan</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Workout Plans Section -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="color: #ff6b6b;">🏋️‍♂️ Workout Plans</h3>
+                <a href="{% url 'trainer_create_workout_plan' customer.id %}" class="btn btn-warning">➕ Create Workout Plan</a>
+            </div>
+
+            {% if workout_plans %}
+                {% for plan in workout_plans %}
+                    <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div>
+                                <h4 style="color: #ffecd2; margin-bottom: 5px;">{{ plan.title }}</h4>
+                                <p style="color: #ccc; font-size: 0.9rem;">{{ plan.duration_weeks }} weeks program</p>
+                                <p style="color: #ccc; font-size: 0.9rem;">Created: {{ plan.created_at|date:"M d, Y" }}</p>
+                            </div>
+                            <div>
+                                {% if plan.is_active %}
+                                    <span style="background: rgba(40,167,69,0.2); color: #28a745; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;">✅ Active</span>
+                                {% else %}
+                                    <span style="background: rgba(108,117,125,0.2); color: #6c757d; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;">⏸️ Inactive</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if plan.description %}
+                            <p style="margin-bottom: 15px; color: #ccc;">{{ plan.description }}</p>
+                        {% endif %}
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 15px 0;">
+                            {% if plan.monday %}<div style="background: rgba(255,107,107,0.1); padding: 8px; border-radius: 6px; text-align: center;"><strong>Mon</strong><br><small>{{ plan.monday|truncatewords:3 }}</small></div>{% endif %}
+                            {% if plan.tuesday %}<div style="background: rgba(255,193,7,0.1); padding: 8px; border-radius: 6px; text-align: center;"><strong>Tue</strong><br><small>{{ plan.tuesday|truncatewords:3 }}</small></div>{% endif %}
+                            {% if plan.wednesday %}<div style="background: rgba(40,167,69,0.1); padding: 8px; border-radius: 6px; text-align: center;"><strong>Wed</strong><br><small>{{ plan.wednesday|truncatewords:3 }}</small></div>{% endif %}
+                            {% if plan.thursday %}<div style="background: rgba(23,162,184,0.1); padding: 8px; border-radius: 6px; text-align: center;"><strong>Thu</strong><br><small>{{ plan.thursday|truncatewords:3 }}</small></div>{% endif %}
+                            {% if plan.friday %}<div style="background: rgba(111,66,193,0.1); padding: 8px; border-radius: 6px; text-align: center;"><strong>Fri</strong><br><small>{{ plan.friday|truncatewords:3 }}</small></div>{% endif %}
+                            {% if plan.saturday %}<div style="background: rgba(253,126,20,0.1); padding: 8px; border-radius: 6px; text-align: center;"><strong>Sat</strong><br><small>{{ plan.saturday|truncatewords:3 }}</small></div>{% endif %}
+                            {% if plan.sunday %}<div style="background: rgba(220,53,69,0.1); padding: 8px; border-radius: 6px; text-align: center;"><strong>Sun</strong><br><small>{{ plan.sunday|truncatewords:3 }}</small></div>{% endif %}
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <a href="{% url 'trainer_edit_workout_plan' plan.id %}" class="btn btn-primary" style="font-size: 0.9rem;">✏️ Edit</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div style="text-align: center; padding: 40px; color: #ccc;">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">💪</div>
+                    <p>No workout plans created yet.</p>
+                    <a href="{% url 'trainer_create_workout_plan' customer.id %}" class="btn btn-warning" style="margin-top: 15px;">Create First Workout Plan</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Progress Records -->
+    {% if progress_records %}
+        <div class="card">
+            <h3 style="color: #20c997; margin-bottom: 20px;">📈 Progress History</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                {% for progress in progress_records %}
+                    <div style="background: rgba(32,201,151,0.1); padding: 15px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 600; color: #20c997;">{{ progress.weight_kg }} kg</div>
+                        <div style="color: #ccc; margin: 5px 0;">{{ progress.date|date:"M d, Y" }}</div>
+                        {% if progress.notes %}
+                            <div style="font-size: 0.9rem; color: #aaa; margin-top: 10px;">{{ progress.notes|truncatewords:8 }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
