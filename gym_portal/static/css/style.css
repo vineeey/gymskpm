@@ -94,52 +94,56 @@ body, html {
     100% { opacity: 0; }
 }
 
-/* NAVIGATION - solid & readable */
+/* NAVIGATION - Mobile First Approach */
 .nav {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 10;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
-    background: rgba(255,255,255,0.95);
+    padding: 15px 20px;
+    background: rgba(255,255,255,0.98);
     border-bottom: 1px solid rgba(30,30,30,0.05);
-    box-shadow: 0 2px 12px rgba(30,30,30,0.06);
+    box-shadow: 0 2px 12px rgba(30,30,30,0.08);
     transition: all 0.3s ease;
+    min-height: 70px;
 }
 
 .nav.scrolled {
     background: rgba(255,255,255,0.99);
-    padding: 15px 40px;
+    padding: 12px 20px;
+    min-height: 60px;
 }
 
 .nav .brand {
     font-weight: 800;
-    font-size: 1.8rem;
-    letter-spacing: 2px;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
     background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    flex-shrink: 0;
 }
 
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .nav a {
     color: #222;
     text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 25px;
+    padding: 8px 16px;
+    border-radius: 20px;
     transition: all 0.3s ease;
     font-weight: 500;
-    position: relative;
-    overflow: hidden;
+    font-size: 0.9rem;
+    white-space: nowrap;
     background: none;
     text-shadow: none;
 }
@@ -147,64 +151,70 @@ body, html {
 .nav a:hover {
     background: rgba(102,126,234,0.06);
     color: #333;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 .nav a.btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
-    box-shadow: 0 4px 8px rgba(102,126,234,0.15);
+    box-shadow: 0 2px 6px rgba(102,126,234,0.15);
+    font-size: 0.85rem;
+    padding: 8px 14px;
 }
 
 .nav a.btn-secondary {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     color: #fff;
-    box-shadow: 0 4px 8px rgba(240,147,251,0.08);
+    box-shadow: 0 2px 6px rgba(240,147,251,0.08);
+    font-size: 0.85rem;
+    padding: 8px 14px;
 }
 
-/* Main container - light, readable background */
+/* Main container - Mobile optimized */
 .container {
     position: relative;
     z-index: 2;
     max-width: 1200px;
-    margin: 120px auto 40px;
-    padding: 40px;
-    background: rgba(255,255,255,0.97);
-    border-radius: 16px;
-    box-shadow: 0 2px 16px rgba(30,30,30,0.06);
+    margin: 90px auto 40px;
+    padding: 20px;
+    background: rgba(255,255,255,0.98);
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(30,30,30,0.08);
     border: 1px solid rgba(30,30,30,0.04);
+    min-height: calc(100vh - 130px);
 }
 
 .card {
-    background: rgba(245,245,250,0.97);
+    background: rgba(248,250,252,0.98);
     border: 1px solid rgba(30,30,30,0.05);
-    padding: 30px;
-    border-radius: 14px;
-    margin-bottom: 25px;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
     box-shadow: 0 2px 8px rgba(30,30,30,0.03);
     color: #161616;
+    overflow: hidden;
 }
 
-/* Grid layouts */
+/* Grid layouts - Mobile responsive */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
 .grid-2 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 15px;
 }
 
 .grid-3 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 15px;
 }
 
-/* Forms */
+/* Forms - Mobile optimized */
 .form-group {
     margin-bottom: 20px;
 }
@@ -214,18 +224,21 @@ form label {
     margin: 0 0 8px;
     font-weight: 600;
     color: #161616;
+    font-size: 0.95rem;
 }
 
 .form-control {
     width: 100%;
-    padding: 15px 20px;
+    padding: 14px 18px;
     border-radius: 8px;
     border: 2px solid rgba(30,30,30,0.08);
     background: #fff;
     color: #222;
-    font-size: 16px;
+    font-size: 16px; /* Prevents zoom on iOS */
     transition: all 0.3s ease;
     box-shadow: none;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .form-control:focus {
@@ -237,12 +250,13 @@ form label {
 
 .form-control::placeholder {
     color: #aaa;
+    font-size: 15px;
 }
 
-/* Buttons */
+/* Buttons - Mobile optimized */
 .btn {
     display: inline-block;
-    padding: 15px 30px;
+    padding: 12px 24px;
     border-radius: 25px;
     border: none;
     cursor: pointer;
@@ -251,88 +265,93 @@ form label {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    font-size: 16px;
+    font-size: 15px;
     text-shadow: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.10);
+    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.15);
 }
 
 .btn-secondary {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     color: white;
-    box-shadow: 0 5px 15px rgba(240, 147, 251, 0.10);
+    box-shadow: 0 3px 10px rgba(240, 147, 251, 0.15);
 }
 
 .btn-success {
     background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
     color: #155724;
-    box-shadow: 0 5px 15px rgba(132, 250, 176, 0.10);
+    box-shadow: 0 3px 10px rgba(132, 250, 176, 0.15);
 }
 
 .btn-warning {
     background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
     color: #856404;
-    box-shadow: 0 5px 15px rgba(255, 236, 210, 0.10);
+    box-shadow: 0 3px 10px rgba(255, 236, 210, 0.15);
 }
 
 .btn-danger {
     background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
     color: #721c24;
-    box-shadow: 0 5px 15px rgba(255, 154, 158, 0.10);
+    box-shadow: 0 3px 10px rgba(255, 154, 158, 0.15);
 }
 
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-}
-
-.btn:active {
-    transform: translateY(-1px);
+.btn:hover, .btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
 .stats-card {
     text-align: center;
-    padding: 30px;
-    background: rgba(250,250,255,0.97);
+    padding: 25px 20px;
+    background: rgba(250,250,255,0.98);
     border-radius: 15px;
     border: 1px solid rgba(30,30,30,0.04);
 }
 
 .stats-number {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 800;
     background: linear-gradient(135deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    line-height: 1.2;
 }
 
 .stats-label {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-top: 10px;
     color: #333;
 }
 
 .messages {
     position: fixed;
-    top: 100px;
-    right: 20px;
+    top: 90px;
+    right: 10px;
+    left: 10px;
     z-index: 9999;
-    max-width: 400px;
+    max-width: none;
 }
 
 .messages .msg {
-    padding: 20px;
+    padding: 15px 20px;
     border-radius: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     border-left: 4px solid;
     animation: slideIn 0.3s ease;
     background: #fff;
     color: #222;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .messages .msg.success { background: #e9fbe9; border-left-color: #28a745; color: #155724;}
@@ -340,38 +359,48 @@ form label {
 .messages .msg.info { background: #e9f8fb; border-left-color: #17a2b8; color: #0c5460;}
 
 @keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
-/* Tables */
+/* Tables - Mobile scroll */
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 20px -20px;
+    padding: 0 20px;
+}
+
 .table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     background: #fff;
+    min-width: 600px;
 }
 
 .table th, .table td {
-    padding: 15px;
+    padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #e5e7ef;
     color: #222;
+    font-size: 0.9rem;
 }
 
 .table th {
     background: #f8fafc;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .profile-section {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .profile-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    grid-template-columns: 1fr;
+    gap: 12px;
     margin-top: 15px;
 }
 
@@ -383,23 +412,27 @@ form label {
 }
 
 .info-label {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #888;
     margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .info-value {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #222;
+    word-break: break-word;
 }
 
 .bmi-indicator {
     display: inline-block;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
     font-weight: 600;
+    text-transform: uppercase;
 }
 .bmi-underweight { background: #fff3cd; color: #856404; }
 .bmi-normal { background: #d4edda; color: #155724; }
@@ -409,16 +442,29 @@ form label {
 h1, h2, h3, h4, h5, h6 {
     text-shadow: none;
     color: #161616;
+    line-height: 1.3;
+    margin-bottom: 15px;
 }
+
+h1 { font-size: 1.8rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.3rem; }
+h4 { font-size: 1.1rem; }
 
 p, span, div, label, a {
     text-shadow: none;
     color: #161616;
+    line-height: 1.5;
 }
 
 select.form-control {
     background: #fff;
     color: #222;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px 12px;
+    padding-right: 40px;
 }
 select.form-control option {
     background: #fff;
@@ -427,6 +473,7 @@ select.form-control option {
 textarea.form-control {
     background: #fff;
     resize: vertical;
+    min-height: 100px;
 }
 input.form-control:focus,
 textarea.form-control:focus,
@@ -437,30 +484,123 @@ select.form-control:focus {
     box-shadow: 0 0 0 0.2rem rgba(102,126,234,0.10);
 }
 
-/* Responsive design */
+/* Enhanced Mobile Responsive Design */
 @media (max-width: 768px) {
     .nav {
-        padding: 15px 20px;
-        flex-direction: column;
-        gap: 15px;
-        background: rgba(255,255,255,0.97);
+        padding: 12px 15px;
+        min-height: 60px;
+        background: rgba(255,255,255,0.99);
+        backdrop-filter: blur(10px);
     }
+
     .nav .brand {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+        letter-spacing: 0.5px;
     }
+
     .nav-menu {
+        gap: 8px;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-end;
     }
+
+    .nav a {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        border-radius: 15px;
+    }
+
+    .nav a.btn-primary,
+    .nav a.btn-secondary {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+
     .container {
-        margin: 180px 20px 40px;
-        padding: 20px;
+        margin: 75px 10px 20px;
+        padding: 15px;
+        border-radius: 8px;
     }
-    .grid {
+
+    .card {
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+
+    .grid, .grid-2, .grid-3 {
         grid-template-columns: 1fr;
+        gap: 15px;
     }
+
     .stats-number {
         font-size: 2rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 14px 20px;
+        font-size: 0.9rem;
+    }
+
+    .form-control {
+        font-size: 16px; /* Prevents zoom */
+        padding: 12px 16px;
+    }
+
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.3rem; }
+    h3 { font-size: 1.1rem; }
+
+    .messages {
+        top: 75px;
+        right: 5px;
+        left: 5px;
+    }
+
+    .messages .msg {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav {
+        padding: 10px 12px;
+        min-height: 55px;
+    }
+
+    .nav .brand {
+        font-size: 1rem;
+    }
+
+    .nav a {
+        padding: 5px 8px;
+        font-size: 0.75rem;
+    }
+
+    .container {
+        margin: 70px 5px 15px;
+        padding: 12px;
+    }
+
+    .card {
+        padding: 12px;
+    }
+
+    .btn {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+    }
+
+    .stats-number {
+        font-size: 1.8rem;
+    }
+
+    .table th, .table td {
+        padding: 8px 10px;
+        font-size: 0.8rem;
     }
 }
 
@@ -490,16 +630,44 @@ select.form-control:focus {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 ::-webkit-scrollbar-track {
     background: #e5e7ef;
 }
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(135deg, #667eea, #764ba2);
-    border-radius: 4px;
+    border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(135deg, #764ba2, #667eea);
 }
-* { backdrop-filter: none !important; }
+
+/* Touch improvements */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input, textarea, select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Remove blur effects */
+* {
+    backdrop-filter: none !important;
+}
+
+/* Fix viewport issues */
+@viewport {
+    width: device-width;
+    initial-scale: 1.0;
+}
