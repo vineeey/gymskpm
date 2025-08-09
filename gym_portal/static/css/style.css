@@ -17,14 +17,14 @@ body, html {
     position: relative;
 }
 
-/* Overlay above slideshow for readability */
+/* Overlay above slideshow for readability - LIGHTER for mobile */
 .bg-dark-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(16, 16, 16, 0.60);
+    background: rgba(16, 16, 16, 0.35);
     z-index: 0;
     pointer-events: none;
 }
@@ -94,7 +94,7 @@ body, html {
     100% { opacity: 0; }
 }
 
-/* NAVIGATION - Mobile First Approach */
+/* NAVIGATION - Desktop first, mobile optimized */
 .nav {
     position: fixed;
     top: 0;
@@ -103,23 +103,23 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-    background: rgba(255,255,255,0.98);
+    padding: 20px 40px;
+    background: rgba(255,255,255,0.95);
     border-bottom: 1px solid rgba(30,30,30,0.05);
     box-shadow: 0 2px 12px rgba(30,30,30,0.08);
     transition: all 0.3s ease;
-    min-height: 70px;
+    min-height: 80px;
 }
 
 .nav.scrolled {
-    background: rgba(255,255,255,0.99);
-    padding: 12px 20px;
-    min-height: 60px;
+    background: rgba(255,255,255,0.98);
+    padding: 15px 40px;
+    min-height: 70px;
 }
 
 .nav .brand {
     font-weight: 800;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     letter-spacing: 1px;
     background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
     -webkit-background-clip: text;
@@ -131,18 +131,18 @@ body, html {
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 .nav a {
     color: #222;
     text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 10px 20px;
+    border-radius: 25px;
     transition: all 0.3s ease;
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     white-space: nowrap;
     background: none;
     text-shadow: none;
@@ -158,63 +158,59 @@ body, html {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
     box-shadow: 0 2px 6px rgba(102,126,234,0.15);
-    font-size: 0.85rem;
-    padding: 8px 14px;
 }
 
 .nav a.btn-secondary {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     color: #fff;
     box-shadow: 0 2px 6px rgba(240,147,251,0.08);
-    font-size: 0.85rem;
-    padding: 8px 14px;
 }
 
-/* Main container - Mobile optimized */
+/* Main container - Desktop first */
 .container {
     position: relative;
     z-index: 2;
     max-width: 1200px;
-    margin: 90px auto 40px;
-    padding: 20px;
-    background: rgba(255,255,255,0.98);
-    border-radius: 12px;
+    margin: 100px auto 40px;
+    padding: 40px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 16px;
     box-shadow: 0 2px 16px rgba(30,30,30,0.08);
     border: 1px solid rgba(30,30,30,0.04);
-    min-height: calc(100vh - 130px);
+    min-height: calc(100vh - 140px);
 }
 
 .card {
-    background: rgba(248,250,252,0.98);
+    background: rgba(248,250,252,0.95);
     border: 1px solid rgba(30,30,30,0.05);
-    padding: 20px;
+    padding: 30px;
     border-radius: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     box-shadow: 0 2px 8px rgba(30,30,30,0.03);
     color: #161616;
     overflow: hidden;
 }
 
-/* Grid layouts - Mobile responsive */
+/* Grid layouts - Desktop responsive */
 .grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
 }
 
 .grid-2 {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
 .grid-3 {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
 }
 
-/* Forms - Mobile optimized */
+/* Forms */
 .form-group {
     margin-bottom: 20px;
 }
@@ -229,12 +225,12 @@ form label {
 
 .form-control {
     width: 100%;
-    padding: 14px 18px;
+    padding: 15px 20px;
     border-radius: 8px;
     border: 2px solid rgba(30,30,30,0.08);
     background: #fff;
     color: #222;
-    font-size: 16px; /* Prevents zoom on iOS */
+    font-size: 16px;
     transition: all 0.3s ease;
     box-shadow: none;
     -webkit-appearance: none;
@@ -250,13 +246,12 @@ form label {
 
 .form-control::placeholder {
     color: #aaa;
-    font-size: 15px;
 }
 
-/* Buttons - Mobile optimized */
+/* Buttons */
 .btn {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 15px 30px;
     border-radius: 25px;
     border: none;
     cursor: pointer;
@@ -265,12 +260,12 @@ form label {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    font-size: 15px;
+    font-size: 16px;
     text-shadow: none;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     min-height: 48px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
@@ -312,14 +307,14 @@ form label {
 
 .stats-card {
     text-align: center;
-    padding: 25px 20px;
-    background: rgba(250,250,255,0.98);
+    padding: 30px;
+    background: rgba(250,250,255,0.95);
     border-radius: 15px;
     border: 1px solid rgba(30,30,30,0.04);
 }
 
 .stats-number {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 800;
     background: linear-gradient(135deg, #667eea, #764ba2);
     -webkit-background-clip: text;
@@ -329,18 +324,17 @@ form label {
 }
 
 .stats-label {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin-top: 10px;
     color: #333;
 }
 
 .messages {
     position: fixed;
-    top: 90px;
-    right: 10px;
-    left: 10px;
+    top: 100px;
+    right: 20px;
     z-index: 9999;
-    max-width: none;
+    max-width: 400px;
 }
 
 .messages .msg {
@@ -359,16 +353,15 @@ form label {
 .messages .msg.info { background: #e9f8fb; border-left-color: #17a2b8; color: #0c5460;}
 
 @keyframes slideIn {
-    from { transform: translateY(-100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
-/* Tables - Mobile scroll */
+/* Tables */
 .table-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin: 20px -20px;
-    padding: 0 20px;
+    margin: 20px 0;
 }
 
 .table {
@@ -376,31 +369,28 @@ form label {
     border-collapse: collapse;
     margin-top: 20px;
     background: #fff;
-    min-width: 600px;
 }
 
 .table th, .table td {
-    padding: 12px 15px;
+    padding: 15px;
     text-align: left;
     border-bottom: 1px solid #e5e7ef;
     color: #222;
-    font-size: 0.9rem;
 }
 
 .table th {
     background: #f8fafc;
     font-weight: 600;
-    white-space: nowrap;
 }
 
 .profile-section {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .profile-info {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
     margin-top: 15px;
 }
 
@@ -428,11 +418,10 @@ form label {
 
 .bmi-indicator {
     display: inline-block;
-    padding: 4px 12px;
-    border-radius: 15px;
-    font-size: 0.8rem;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
     font-weight: 600;
-    text-transform: uppercase;
 }
 .bmi-underweight { background: #fff3cd; color: #856404; }
 .bmi-normal { background: #d4edda; color: #155724; }
@@ -446,10 +435,10 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 15px;
 }
 
-h1 { font-size: 1.8rem; }
-h2 { font-size: 1.5rem; }
-h3 { font-size: 1.3rem; }
-h4 { font-size: 1.1rem; }
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
 
 p, span, div, label, a {
     text-shadow: none;
@@ -484,123 +473,235 @@ select.form-control:focus {
     box-shadow: 0 0 0 0.2rem rgba(102,126,234,0.10);
 }
 
-/* Enhanced Mobile Responsive Design */
+/* MOBILE OPTIMIZED RESPONSIVE DESIGN */
 @media (max-width: 768px) {
+    /* Lighter overlay for mobile to show more background */
+    .bg-dark-overlay {
+        background: rgba(16, 16, 16, 0.25);
+    }
+
     .nav {
-        padding: 12px 15px;
-        min-height: 60px;
-        background: rgba(255,255,255,0.99);
-        backdrop-filter: blur(10px);
-    }
-
-    .nav .brand {
-        font-size: 1.2rem;
-        letter-spacing: 0.5px;
-    }
-
-    .nav-menu {
-        gap: 8px;
+        padding: 8px 15px;
+        min-height: 50px;
+        background: rgba(255,255,255,0.9);
+        flex-direction: row;
         flex-wrap: wrap;
-        justify-content: flex-end;
-    }
-
-    .nav a {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-        border-radius: 15px;
-    }
-
-    .nav a.btn-primary,
-    .nav a.btn-secondary {
-        padding: 6px 10px;
-        font-size: 0.75rem;
-    }
-
-    .container {
-        margin: 75px 10px 20px;
-        padding: 15px;
-        border-radius: 8px;
-    }
-
-    .card {
-        padding: 15px;
-        margin-bottom: 15px;
-        border-radius: 8px;
-    }
-
-    .grid, .grid-2, .grid-3 {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .stats-number {
-        font-size: 2rem;
-    }
-
-    .btn {
-        width: 100%;
-        margin-bottom: 10px;
-        padding: 14px 20px;
-        font-size: 0.9rem;
-    }
-
-    .form-control {
-        font-size: 16px; /* Prevents zoom */
-        padding: 12px 16px;
-    }
-
-    h1 { font-size: 1.5rem; }
-    h2 { font-size: 1.3rem; }
-    h3 { font-size: 1.1rem; }
-
-    .messages {
-        top: 75px;
-        right: 5px;
-        left: 5px;
-    }
-
-    .messages .msg {
-        padding: 12px 15px;
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .nav {
-        padding: 10px 12px;
-        min-height: 55px;
     }
 
     .nav .brand {
         font-size: 1rem;
+        letter-spacing: 0.5px;
+        order: 1;
+    }
+
+    .nav-menu {
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        order: 2;
+        width: auto;
     }
 
     .nav a {
-        padding: 5px 8px;
-        font-size: 0.75rem;
+        padding: 4px 8px;
+        font-size: 0.7rem;
+        border-radius: 12px;
+        margin: 2px;
+    }
+
+    .nav a.btn-primary,
+    .nav a.btn-secondary {
+        padding: 4px 8px;
+        font-size: 0.65rem;
     }
 
     .container {
-        margin: 70px 5px 15px;
+        margin: 60px 8px 15px;
         padding: 12px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.88);
+        min-height: auto;
     }
 
     .card {
         padding: 12px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        background: rgba(248,250,252,0.9);
     }
 
-    .btn {
-        padding: 12px 16px;
-        font-size: 0.85rem;
+    .grid, .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 12px;
     }
 
     .stats-number {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
+    }
+
+    .stats-label {
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 8px;
+        padding: 10px 16px;
+        font-size: 0.8rem;
+        min-height: 40px;
+    }
+
+    .form-control {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    /* Smaller headings for mobile */
+    h1 { font-size: 1.4rem; }
+    h2 { font-size: 1.2rem; }
+    h3 { font-size: 1.1rem; }
+    h4 { font-size: 1rem; }
+
+    p, span, div, label {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .messages {
+        top: 60px;
+        right: 5px;
+        left: 5px;
+        max-width: none;
+    }
+
+    .messages .msg {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    .profile-info {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .info-item {
+        padding: 10px;
+    }
+
+    .info-label {
+        font-size: 0.7rem;
+    }
+
+    .info-value {
+        font-size: 0.85rem;
+    }
+
+    .table-wrapper {
+        margin: 15px -12px;
+        padding: 0 12px;
+    }
+
+    .table {
+        min-width: 500px;
+        font-size: 0.75rem;
     }
 
     .table th, .table td {
-        padding: 8px 10px;
+        padding: 8px 6px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .bg-dark-overlay {
+        background: rgba(16, 16, 16, 0.2);
+    }
+
+    .nav {
+        padding: 6px 10px;
+        min-height: 45px;
+    }
+
+    .nav .brand {
+        font-size: 0.9rem;
+    }
+
+    .nav a {
+        padding: 3px 6px;
+        font-size: 0.65rem;
+    }
+
+    .container {
+        margin: 50px 5px 10px;
+        padding: 8px;
+    }
+
+    .card {
+        padding: 8px;
+        margin-bottom: 8px;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+        min-height: 36px;
+    }
+
+    .stats-number {
+        font-size: 1.2rem;
+    }
+
+    .stats-label {
+        font-size: 0.7rem;
+    }
+
+    h1 { font-size: 1.2rem; }
+    h2 { font-size: 1.1rem; }
+    h3 { font-size: 1rem; }
+    h4 { font-size: 0.9rem; }
+
+    p, span, div, label {
         font-size: 0.8rem;
+    }
+
+    .form-control {
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+
+    .table th, .table td {
+        padding: 6px 4px;
+        font-size: 0.7rem;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+    .nav .brand {
+        font-size: 0.8rem;
+    }
+
+    .nav a {
+        font-size: 0.6rem;
+        padding: 2px 4px;
+    }
+
+    h1 { font-size: 1.1rem; }
+    h2 { font-size: 1rem; }
+    h3 { font-size: 0.9rem; }
+
+    p, span, div, label {
+        font-size: 0.75rem;
+    }
+
+    .btn {
+        font-size: 0.7rem;
+        padding: 6px 10px;
+    }
+
+    .container {
+        padding: 6px;
+        margin: 45px 3px 8px;
     }
 }
 
@@ -630,14 +731,14 @@ select.form-control:focus {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
 }
 ::-webkit-scrollbar-track {
     background: #e5e7ef;
 }
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(135deg, #667eea, #764ba2);
-    border-radius: 3px;
+    border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(135deg, #764ba2, #667eea);
@@ -664,10 +765,4 @@ input, textarea, select {
 /* Remove blur effects */
 * {
     backdrop-filter: none !important;
-}
-
-/* Fix viewport issues */
-@viewport {
-    width: device-width;
-    initial-scale: 1.0;
 }
