@@ -1,0 +1,45 @@
+@copilot Please continue this PR and implement the next steps for the React conversion:
+
+1) Scaffold React app
+- Create a new folder `frontend/` using Vite (JavaScript) with React.
+- Add package.json, vite.config.js, index.html, and src/ structure.
+- Update root .gitignore to ignore `frontend/node_modules` and `frontend/dist`.
+
+2) Dependencies
+- Install: react, react-dom, react-router-dom@6, axios, date-fns, classnames.
+- Dev: vite, @vitejs/plugin-react, eslint, eslint-config-react-app (if needed).
+
+3) Project structure
+- src/
+  - App.jsx, main.jsx, styles/global.css
+  - context/AuthContext.jsx (Context API with localStorage persistence)
+  - utils/bmi.js (BMI calc + category)
+  - services/api.js (mock API using localStorage for users, profiles, diet plans, progress)
+  - components/Header/
+  - pages/
+    - Home/
+    - Auth/{Login.jsx, SignupCustomer.jsx, SignupTrainer.jsx}
+    - Dashboard/{CustomerDashboard.jsx, TrainerDashboard.jsx}
+    - Profile/EditProfile.jsx
+    - DietPlan/{DietPlanList.jsx, CreateDietPlan.jsx}
+    - Progress/{AddProgress.jsx, ProgressList.jsx}
+
+4) Styling & UX
+- Port gradients, glassmorphism, and background slideshow into CSS (global.css + Header.css), keeping 20-image slideshow placeholders.
+- Replicate emojis and button styles from Django templates.
+
+5) Features
+- Routing with protected routes by role (customer/trainer).
+- Header menu adapts based on auth state and role.
+- Implement forms with basic validation for login/signups, edit profile, diet plan create, add progress.
+- Customer dashboard shows profile, BMI, diet plans, and quick links.
+- Trainer dashboard shows customers list with search filter and links to create/view diet plans.
+- Add mock image upload handling (store object URL in localStorage).
+
+6) Docs
+- Add `frontend/README.md` with setup: `cd frontend && npm i && npm run dev`.
+
+7) CI (optional)
+- Add a simple GitHub Actions workflow to run `npm ci && npm run build` in `frontend/` on PRs.
+
+Please push incremental commits and tick the checklist items in the PR description as they are completed. If an error is encountered, report it as a comment and proceed to the next independent task where possible.
