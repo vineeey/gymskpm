@@ -1,0 +1,1 @@
+# Frontend build and dependencies\nfrontend/node_modules/\nfrontend/dist/\n\n# Logs\nnpm-debug.log*\nyarn-debug.log*\nyarn-error.log*\npnpm-debug.log*\n\n# OS and editor\n.DS_Store\n*.swp\n.idea/
